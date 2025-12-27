@@ -1,36 +1,40 @@
-# Paradise Nursery Shopping Application
+# Django Online Course Application
 
-## Project Name: Paradise Nursery
+## Project Name: Online Course Assessment System
 
-An interactive e-commerce web application for browsing and purchasing houseplants online.
+A comprehensive Django-based web application for online courses with integrated exam and assessment features.
 
 ## Description
 
-Paradise Nursery is a dynamic React-based shopping cart application that provides users with a seamless online plant shopping experience. The application features a comprehensive catalog of houseplants organized by categories, allowing customers to browse, add items to their cart, and manage their purchases efficiently.
+This Django application provides a complete online learning platform where instructors can create courses with lessons and exams, and students can enroll, learn, and take assessments. The system includes automatic grading, detailed result analysis, and a user-friendly interface built with Bootstrap.
 
 ## Features
 
-- **Product Catalog**: Browse through a wide selection of houseplants organized into multiple categories
-- **Shopping Cart**: Add plants to cart with real-time quantity updates
-- **Cart Management**: Increase/decrease quantities, remove items, and view total costs
-- **Dynamic Navigation**: Interactive navbar with cart icon showing item count
-- **Responsive Design**: User-friendly interface with attractive plant imagery
-- **Redux State Management**: Efficient state handling using Redux Toolkit
+- **Course Management**: Create and manage courses with multiple lessons
+- **User Authentication**: Registration, login, and logout functionality
+- **Enrollment System**: Students can enroll in courses
+- **Question Bank**: Multiple-choice questions with automatic grading
+- **Exam System**: Take exams and view detailed results
+- **Admin Interface**: Full-featured Django admin for content management
+- **Bootstrap UI**: Responsive and modern user interface
+- **Result Analytics**: Detailed score breakdown and question-by-question analysis
 
 ## Technologies Used
 
-- React.js
-- Redux Toolkit
-- React Router
-- CSS3
-- JavaScript ES6+
+- Python 3.8+
+- Django 4.x
+- Bootstrap 4.5
+- SQLite (default) / PostgreSQL
+- HTML5/CSS3
+- JavaScript/jQuery
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (v14 or higher)
-- npm or yarn
+- Python 3.8 or higher
+- pip (Python package installer)
+- Virtual environment (recommended)
 
 ### Installation
 
@@ -40,57 +44,98 @@ git clone <repository-url>
 cd github-final-project
 ```
 
-2. Install dependencies
+2. Create and activate virtual environment
 ```bash
-npm install
+python -m venv venv
+# On Windows
+venv\Scripts\activate
+# On macOS/Linux
+source venv/bin/activate
 ```
 
-3. Start the development server
+3. Install dependencies
 ```bash
-npm start
+pip install -r requirements.txt
 ```
 
-4. Open your browser and navigate to `http://localhost:3000`
+4. Run migrations
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+5. Create superuser
+```bash
+python manage.py createsuperuser
+```
+
+6. Run the development server
+```bash
+python manage.py runserver
+```
+
+7. Access the application at `http://localhost:8000`
+8. Access admin interface at `http://localhost:8000/admin`
 
 ## Project Structure
 
 ```
-├── src/
-│   ├── components/
-│   │   ├── AboutUs.jsx
-│   │   ├── ProductList.jsx
-│   │   ├── CartItem.jsx
-│   │   └── ...
-│   ├── redux/
-│   │   ├── store.js
-│   │   └── CartSlice.jsx
-│   ├── App.jsx
-│   ├── App.css
-│   └── index.js
-├── public/
-├── package.json
+├── onlinecourse/
+│   ├── models.py           # Database models (Course, Lesson, Question, etc.)
+│   ├── views.py            # View functions (submit, show_exam_result)
+│   ├── admin.py            # Admin configurations with inline classes
+│   ├── urls.py             # URL routing
+│   ├── templates/
+│   │   └── onlinecourse/
+│   │       ├── course_details_bootstrap.html
+│   │       └── exam_result_bootstrap.html
+│   └── ...
+├── myproject/
+│   ├── settings.py
+│   ├── urls.py
+│   └── ...
+├── manage.py
+├── requirements.txt
 └── README.md
 ```
 
+## Models
+
+- **Course**: Course information and enrollment tracking
+- **Lesson**: Course content organized by lessons
+- **Question**: Exam questions with grading points
+- **Choice**: Multiple choice answers (correct/incorrect)
+- **Submission**: Student exam submissions
+- **Enrollment**: Student course enrollments
+- **Instructor**: Course instructors
+- **Learner**: Student profiles
+
+## Admin Features
+
+- QuestionInline: Add questions directly within lesson admin
+- ChoiceInline: Add choices directly within question admin
+- Full CRUD operations for all models
+- Search and filter functionality
+
 ## Usage
 
-1. **Browse Plants**: View the collection of houseplants organized by categories
-2. **Add to Cart**: Click "Add to Cart" button to add plants to your shopping cart
-3. **Manage Cart**: Adjust quantities or remove items from the cart page
-4. **Checkout**: Proceed to checkout (Coming Soon feature)
+1. **Admin Setup**: Login to admin panel and create courses, lessons, and questions
+2. **Student Registration**: Students register and login
+3. **Enroll in Course**: Browse and enroll in available courses
+4. **Take Exam**: Complete the exam questions
+5. **View Results**: See detailed results with score breakdown
 
-## Categories
+## Grading System
 
-- Air Purifying Plants
-- Aromatic Fragrant Plants
-- Insect Repellent Plants
-- Medicinal Plants
-- Low Maintenance Plants
-- Flowering Plants
+- Automatic grading based on correct answers
+- Points assigned per question
+- Percentage calculation
+- Pass/Fail status (80% passing grade)
+- Detailed feedback on each question
 
 ## Author
 
-Created as part of the IBM Developer Skills Network course project
+Created as part of the IBM Developer Skills Network course project - Django Final Assessment
 
 ## License
 
@@ -99,5 +144,5 @@ This project is licensed under the Apache License 2.0 - see the LICENSE file for
 ## Acknowledgments
 
 - IBM Developer Skills Network
-- React Community
-- Redux Team
+- Django Software Foundation
+- Bootstrap Team
