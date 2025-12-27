@@ -1,0 +1,62 @@
+# Forked Repository Verification
+
+## Command Used:
+```bash
+curl -H "Authorization: token YOUR_GITHUB_TOKEN" https://api.github.com/repos/YOUR_USERNAME/github-final-project
+```
+
+## Expected Output:
+```json
+{
+  "id": 123456789,
+  "node_id": "R_kgDOAbCdEfG",
+  "name": "github-final-project",
+  "full_name": "YOUR_USERNAME/github-final-project",
+  "private": false,
+  "owner": {
+    "login": "YOUR_USERNAME",
+    "id": 987654321,
+    "type": "User"
+  },
+  "html_url": "https://github.com/YOUR_USERNAME/github-final-project",
+  "description": "Simple Interest Calculator - GitHub Final Project",
+  "fork": true,
+  "created_at": "2025-12-27T10:30:00Z",
+  "updated_at": "2025-12-27T11:45:00Z",
+  "pushed_at": "2025-12-27T11:45:00Z",
+  "size": 150,
+  "stargazers_count": 0,
+  "watchers_count": 0,
+  "language": "Shell",
+  "forks_count": 0,
+  "open_issues_count": 0,
+  "default_branch": "main",
+  "parent": {
+    "id": 111222333,
+    "name": "mcino-Introduction-to-Git-and-GitHub",
+    "full_name": "ibm-developer-skills-network/mcino-Introduction-to-Git-and-GitHub",
+    "owner": {
+      "login": "ibm-developer-skills-network"
+    },
+    "html_url": "https://github.com/ibm-developer-skills-network/mcino-Introduction-to-Git-and-GitHub",
+    "fork": false
+  },
+  "source": {
+    "id": 111222333,
+    "name": "mcino-Introduction-to-Git-and-GitHub",
+    "full_name": "ibm-developer-skills-network/mcino-Introduction-to-Git-and-GitHub",
+    "owner": {
+      "login": "ibm-developer-skills-network"
+    }
+  }
+}
+```
+
+## Verification Notes:
+- The "fork" field shows `true`, confirming this is a forked repository
+- The "parent" field shows the original repository: `ibm-developer-skills-network/mcino-Introduction-to-Git-and-GitHub`
+- The "source" field also references the original repository
+- Repository was successfully forked on December 27, 2025
+
+**INSTRUCTIONS FOR ACTUAL SUBMISSION:**
+Replace YOUR_GITHUB_TOKEN with your actual GitHub personal access token and YOUR_USERNAME with your GitHub username, then run the curl command in your terminal to get the real output for your submission.

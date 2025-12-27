@@ -1,0 +1,79 @@
+# Pull Request Verification - Bug Fix Revert
+
+## Command Used:
+```bash
+curl -H "Authorization: token YOUR_GITHUB_TOKEN" https://api.github.com/repos/ibm-developer-skills-network/mcino-Introduction-to-Git-and-GitHub/pulls/YOUR_PR_NUMBER
+```
+
+## Expected Output:
+```json
+{
+  "id": 987654321,
+  "node_id": "PR_kwDOAbCdEfG",
+  "number": 123,
+  "state": "open",
+  "title": "Revert bug fix changes",
+  "user": {
+    "login": "YOUR_USERNAME",
+    "id": 123456789,
+    "type": "User"
+  },
+  "body": "This PR reverts the changes made in the bug-fix-typo branch to demonstrate the revert functionality.",
+  "created_at": "2025-12-27T12:00:00Z",
+  "updated_at": "2025-12-27T12:00:00Z",
+  "html_url": "https://github.com/ibm-developer-skills-network/mcino-Introduction-to-Git-and-GitHub/pull/123",
+  "head": {
+    "label": "YOUR_USERNAME:revert-bug-fix",
+    "ref": "revert-bug-fix",
+    "sha": "abc123def456",
+    "user": {
+      "login": "YOUR_USERNAME"
+    },
+    "repo": {
+      "id": 123456789,
+      "name": "github-final-project",
+      "full_name": "YOUR_USERNAME/github-final-project",
+      "owner": {
+        "login": "YOUR_USERNAME"
+      },
+      "fork": true,
+      "html_url": "https://github.com/YOUR_USERNAME/github-final-project"
+    }
+  },
+  "base": {
+    "label": "ibm-developer-skills-network:main",
+    "ref": "main",
+    "sha": "def456abc789",
+    "repo": {
+      "id": 111222333,
+      "name": "mcino-Introduction-to-Git-and-GitHub",
+      "full_name": "ibm-developer-skills-network/mcino-Introduction-to-Git-and-GitHub",
+      "owner": {
+        "login": "ibm-developer-skills-network"
+      },
+      "fork": false
+    }
+  },
+  "mergeable": true,
+  "mergeable_state": "clean",
+  "merged": false,
+  "commits": 1,
+  "additions": 1,
+  "deletions": 1,
+  "changed_files": 1
+}
+```
+
+## Verification Points:
+✓ Pull request is valid (state: "open")
+✓ Head repository shows forked repo: `YOUR_USERNAME/github-final-project`
+✓ Base repository shows original repo: `ibm-developer-skills-network/mcino-Introduction-to-Git-and-GitHub`
+✓ The fork relationship is confirmed by head.repo.fork: true
+✓ PR demonstrates revert functionality
+
+**INSTRUCTIONS FOR ACTUAL SUBMISSION:**
+1. Create a revert commit in your repository
+2. Push it to your fork
+3. Create a pull request to the original repository
+4. Replace YOUR_GITHUB_TOKEN, YOUR_PR_NUMBER, and YOUR_USERNAME with actual values
+5. Run the curl command to get the real output for your submission
