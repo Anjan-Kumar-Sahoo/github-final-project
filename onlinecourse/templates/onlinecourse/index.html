@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Online Courses</title>
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        .course-card {
+            transition: transform 0.3s;
+            margin-bottom: 30px;
+        }
+        .course-card:hover {
+            transform: translateY(-10px);
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'onlinecourse:index' %}">🎓 Online Courses</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <span class="nav-link">Welcome, {{ user.username }}!</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'onlinecourse:logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary text-white mr-2" href="{% url 'onlinecourse:login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-success text-white" href="{% url 'onlinecourse:registration' %}">Sign Up</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="container">
+        <h1 class="display-3">Welcome to Online Learning Platform</h1>
+        <p class="lead">Explore our comprehensive courses and start learning today!</p>
+        {% if not user.is_authenticated %}
+        <a href="{% url 'onlinecourse:registration' %}" class="btn btn-light btn-lg mt-3">Get Started</a>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Courses Section -->
+<div class="container mt-5 mb-5">
+    <h2 class="text-center mb-5">Available Courses</h2>
+    
+    {% if courses %}
+    <div class="row">
+        {% for course in courses %}
+        <div class="col-md-4">
+            <div class="card course-card shadow">
+                {% if course.image %}
+                <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.name }}" style="height: 200px; object-fit: cover;">
+                {% else %}
+                <div class="card-img-top bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 200px;">
+                    <h3>{{ course.name|slice:":1" }}</h3>
+                </div>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ course.name }}</h5>
+                    <p class="card-text">{{ course.description|truncatewords:20 }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="badge badge-info">{{ course.total_enrollment }} enrolled</span>
+                        <a href="{% url 'onlinecourse:course_details' course.id %}" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="alert alert-info text-center" role="alert">
+        <h4>No courses available yet.</h4>
+        <p>Please check back later or contact the administrator.</p>
+        {% if user.is_staff %}
+        <a href="/admin" class="btn btn-primary mt-3">Go to Admin Panel to Add Courses</a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
