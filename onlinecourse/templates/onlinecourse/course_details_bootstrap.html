@@ -47,7 +47,13 @@
         <div class="col-lg-8">
             <!-- Course Header -->
             <div class="card mb-4">
-                <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.name }}">
+                {% if course.image %}
+                <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.name }}" style="max-height: 400px; object-fit: cover;">
+                {% else %}
+                <div class="card-img-top bg-primary text-white d-flex align-items-center justify-content-center" style="height: 250px;">
+                    <h1>{{ course.name }}</h1>
+                </div>
+                {% endif %}
                 <div class="card-body">
                     <h2 class="card-title">{{ course.name }}</h2>
                     <p class="card-text">{{ course.description }}</p>
@@ -124,7 +130,7 @@
             {% if course.is_enrolled %}
             <div class="card mt-4 mb-5">
                 <div class="card-body text-center">
-                    <form action="{% url 'onlinecourse:submit' course.id %}" method="post">
+                    <form action="{% url 'onlinecourse:submit' course.id %}" method="post" id="examForm">
                         {% csrf_token %}
                         {% for lesson in course.lesson_set.all %}
                             {% for question in lesson.question_set.all %}
@@ -135,7 +141,7 @@
                                 {% endfor %}
                             {% endfor %}
                         {% endfor %}
-                        <button type="submit" class="btn btn-primary btn-lg" onclick="collectAnswers()">
+                        <button type="button" class="btn btn-primary btn-lg" onclick="submitExam()">
                             Submit Exam
                         </button>
                     </form>
@@ -180,19 +186,25 @@
 </div>
 
 <script>
-function collectAnswers() {
-    // Collect all checked answers and sync them to the submit form
-    {% for lesson in course.lesson_set.all %}
-        {% for question in lesson.question_set.all %}
-            var checkedBoxes = document.querySelectorAll('input[name="choice_{{ question.id }}"]:checked');
-            checkedBoxes.forEach(function(box) {
-                var submitBox = document.getElementById('submit_choice_' + box.value);
-                if (submitBox) {
-                    submitBox.checked = true;
-                }
-            });
-        {% endfor %}
-    {% endfor %}
+function submitExam() {
+    // Get all visible checkboxes (from the question forms, not the hidden submit form)
+    var allVisibleCheckboxes = document.querySelectorAll('input[type="checkbox"]:not([style*="display:none"]):not([style*="display: none"])');
+    
+    // Loop through visible checkboxes and sync to hidden form
+    allVisibleCheckboxes.forEach(function(checkbox) {
+        if (checkbox.checked && checkbox.id.startsWith('choice_')) {
+            // Get the choice ID from the checkbox
+            var choiceId = checkbox.value;
+            // Find the corresponding hidden checkbox in the submit form
+            var hiddenCheckbox = document.getElementById('submit_choice_' + choiceId);
+            if (hiddenCheckbox) {
+                hiddenCheckbox.checked = true;
+            }
+        }
+    });
+    
+    // Submit the form
+    document.getElementById('examForm').submit();
 }
 </script>
 
