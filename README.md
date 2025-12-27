@@ -6,7 +6,7 @@ This project is a simple interest calculator implementation created as part of t
 
 ## Description
 
-A command-line tool that calculates simple interest based on user-provided principal amount, rate of interest, and time period.
+A command-line tool that calculates simple interest based on user-provided principal amount, rate of interest, and time period in years.
 
 ## Features
 
